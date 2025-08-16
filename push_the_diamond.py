@@ -26,8 +26,45 @@ class PushTheDiamond:
         self.next_level = None
         self.diamond_id = None
         self.diamond_count = 0
+        self.just_came_from_best = False
         self.create_widgets()
         self.goto_level(0)
+
+    def start_firework(self):
+        import random
+        self._firework_active = True
+        self._firework_items = []
+        self._firework_count = 0
+        self._max_firework = 30  # 폭죽 횟수
+        self._firework()
+
+    def stop_firework(self):
+        self._firework_active = False
+        # 폭죽 잔상 제거
+        if hasattr(self, '_firework_items'):
+            for item in self._firework_items:
+                self.canvas.delete(item)
+            self._firework_items.clear()
+
+    def _firework(self):
+        import random
+        if not getattr(self, '_firework_active', False):
+            return
+        # 랜덤 위치, 랜덤 색상, 랜덤 크기 원 그리기
+        x = random.randint(150, 850)
+        y = random.randint(150, 700)
+        r = random.randint(20, 60)
+        color = random.choice(["red","orange","yellow","green","blue","purple","magenta","cyan","lime","gold","pink"])
+        item = self.canvas.create_oval(x-r, y-r, x+r, y+r, fill=color, outline="white", width=3)
+        self._firework_items.append(item)
+        # 잠시 후 원 삭제
+        self.root.after(400, lambda i=item: self.canvas.delete(i))
+        self._firework_count += 1
+        if self._firework_count < self._max_firework:
+            self.root.after(120, self._firework)
+        else:
+            self._firework_active = False
+
 
     def remove_levelx_timer(self):
         # Level X 타이머 라벨 및 타이머 제거
@@ -266,11 +303,19 @@ class PushTheDiamond:
         self.set_button_name(18, "Exit")
         self.set_button_name(26, "Developer")
         self.set_button_name(27, "DWSHIN")
+        # YOUR BEST에서 돌아온 경우 23번 버튼에 특수 기능 부여
+        if self.just_came_from_best:
+            self.set_button_name(23, "Go Level X")
+        else:
+            self.set_button_name(23, "")
         def start_func(btn_id):
             if btn_id == 13:
                 self.goto_level(1)
             elif btn_id == 18:
                 self.root.quit()
+            elif btn_id == 23 and self.just_came_from_best:
+                self.just_came_from_best = False
+                self.goto_level(6)
         self.success_func = start_func
 
     # Level 1
@@ -464,8 +509,11 @@ class PushTheDiamond:
         self.hint_text = "YOU BEST!"
         self.set_button_name(13, "BEST!")
         self.set_button_name(25, "HOME")
+        self.start_firework()
         def func(btn_id):
             if btn_id == 25:
+                self.stop_firework()
+                self.just_came_from_best = True
                 self.goto_level(0)
         self.success_func = func
 
