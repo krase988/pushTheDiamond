@@ -1,0 +1,189 @@
+이 프로그램은 Push The Diamond 라는 게임입니다. 
+시작할 때 5x5 로 버튼 25개 + 우측 하단 버튼 2개로 이루어집니다. 
+각 버튼의 ID는 좌측 맨 위 버튼부터 1, 2, 3, 4, 5,
+그 다음줄 ID는 6, 7, 8, 9, 10, 
+세번째 줄 ID는 11, 12, 13, 14, 15, 
+네번째 줄 ID는 16, 17, 18, 19, 20, 
+다섯번째 줄 ID는 21, 22, 23, 24, 25, 
+우측 하단 버튼은 윗버튼 26, 아랫버튼 27입니다. 
+우측 하단 윗버튼은 네번째 줄과 같은 높이에 위치해 있고
+우측 하단 아랫버튼은 다섯번째 줄과 같은 높이에 위치해 있습니다. 
+
+----------------------------------
+[기본 배치]
+버튼 크기는 100x100픽셀입니다. 
+버튼간 간격은 50픽셀입니다. 
+우측 하단 버튼의 크기도 100x100픽셀입니다. 
+5x5 버튼과 우측 하단 버튼 사이에는 세로로 2픽셀짜리 검은색 선이 그어집니다.
+ID 27번 버튼은 Exit, ID 26번 버튼은 Hint라고 쓰여 있습니다. 
+
+----------------------------------
+[공통 조건]
+각 레벨 조건마다 <Hint>가 있으며 Hint 버튼을 누르면 <Hint>가 표시됩니다.
+각 레벨 조건마다 <Name>이 있으며, 여기에는 버튼 위에 Name이 쓰이는 조건이 적힙니다.
+각 레벨 조건마다 <Success>가 있으며, 각 Level의 성공 조건이 쓰입니다. 성공 조건을 만족할 경우, 다음 레벨로 넘어갑니다. 이 외의 경우는 Fail입니다.
+각 레벨 조건마다 <Next Level>이 있으며, 성공 조건을 달성했을 경우 <Next Level>에 적힌 Level로 넘어갑니다.    
+
+----------------------------------
+[Fail 시 메시지]
+다음 중 하나의 메시지가 출력됩니다. 
+"Failure."
+"You failed."
+"Mission failed."
+"Try again."
+"Not quite."
+"You lose."
+"Game over."
+"Defeated."
+"Unsuccessful."
+"Task failed."
+"The path is closed."
+"Your journey ends here."
+"The gods are not with you."
+"The world has turned against you."
+"You have been bested."
+"A hero's fall."
+"The shadow claims you."
+"Your light has faded."
+"A bitter defeat."
+"There is no redemption."
+"Ouch! That hurt."
+"You fell down."
+"Oops, you messed up."
+"Not this time, buddy."
+"Did you even try?"
+"Better luck next time."
+"Whoopsie-daisy!"
+"You're a natural... at failing."
+"Look at you go! (Straight to the fail screen.)"
+"Who needs to win, anyway?"
+"Dead end."
+"Error."
+"End."
+"Stop."
+"Gone."
+"Ruined."
+"Over."
+"Canceled."
+"Broken."
+"Lost."
+"What went wrong?"
+"Did you even try?"
+"Are you sure about that?"
+"Where did you go?"
+"Whoops, wrong way?"
+"Did you forget something?"
+"Are you okay?"
+"What happened?"
+"Is this your best?"
+"Why did you stop?"
+"The ancient seal remains unbroken."
+"The prophecy was wrong about you."
+"The king falls."
+"The last hope is gone."
+"The gears of fate have stopped."
+"History will not remember this moment."
+"Your legend ends now."
+"The kingdom mourns your loss."
+"The prophecy remains unfulfilled."
+"The curse holds strong."
+"Nice try."
+"You call that a plan?"
+"Pathetic."
+"Don't quit your day job."
+"I've seen better."
+"Is that all you've got?"
+"A valiant effort... not."
+"So close, yet so far."
+"You're not going to make it."
+"Seriously?"
+"You've disappointed me."
+"You let everyone down."
+"There is no hope left."
+"The darkness wins."
+"A sad end."
+"All that effort... for nothing."
+"You couldn't save them."
+"The pain is unbearable."
+"You are alone now."
+"Your last breath."
+"Every end is a new beginning."
+"Failure is a part of the journey."
+"To fail is to learn."
+"The true challenge is in rising again."
+"What defines you is how you get back up."
+"A story with a sad ending."
+"Not all battles are won."
+"The lesson is in the loss."
+"The path of a true hero is paved with defeat."
+"This is not your time."
+"Busted."
+"Whiffed."
+"Poof."
+"Snapped."
+"Wrecked."
+"Miss."
+"D'oh!"
+"Fumble."
+"Fizzle."
+"Nope."
+
+----------------------------------
+[시작 화면]
+ID 7번에 Push, ID 8번에 the, ID 9번에 Diamond의 Name을 붙입니다.
+ID 13번에 Start라는 Name을 붙입니다. 이 버튼을 누를 경우 [Level 1]로 넘어갑니다. 
+ID 18번에 Exit 라는 Name을 붙입니다. 이 버튼을 누를 경우 게임이 종료됩니다. 
+예외적으로, ID 26번 버튼에는 Developer라는 Name이 붙고, 
+ID 27번 버튼에는 DWSHIN이라는 Name을 붙입니다. 
+
+----------------------------------
+[Level 1]
+<Hint> 시작이자 끝
+<Name> ID 1부터 25까지의 버튼 중 하나에 무작위로 ◆가 적힙니다. 
+<Success> ◆가 Name인 버튼을 눌렀을 경우 성공 조건이 달성됩니다. 
+<Next Level> [Level 2]
+
+----------------------------------
+[Level 2]
+<Hint> 네 손으로 떠받치기
+<Name> ID 7, 8, 9, 12, 13, 14, 17, 18, 19중 하나에 ◆가 Name으로 적히고, 해당 버튼은 비활성화됩니다.  
+<Success> ◆가 Name인 버튼의 위, 아래, 왼쪽, 오른쪽 버튼을 먼저 누릅니다. 네 개의 버튼을 누르면 ◆가 Name인 버튼이 활성화됩니다. 마지막으로 활성화된 ◆가 Name인 버튼을 누르면 성공 조건이 달성됩니다. 
+<Next Level> [Level 3]
+
+----------------------------------
+[Level 3]
+<Hint> 두 눈 크게 뜨고
+<Name> 모든 버튼에 !, @, #, $, %, ^, &, *, ;, :, ?, /, _, +, ☆,
+※, ★, ♠, ♣, ◎, ◇, ◆, □, ■, ♥ 를 ID 1부터 25까지 버튼에 Name으로 붙입니다.    
+<Success> ◆가 Name인 버튼을 눌렀을 경우 성공 조건이 달성됩니다. 
+<Next Level> [Level 4]
+
+----------------------------------
+[Level 4]
+<Hint> 십시일반
+<Name> ID 7, 8, 12, 13, 17, 18번 중 하나에 ◀의 Name을 적고, 그 우측 버튼에 ▶를 적습니다. Name이 ◀인 버튼과 ▶인 버튼을 비활성화 합니다. 
+<Success> ◀의 Name을 기준으로 ID가 -6, -5, -4, -3, -1, 2, 4, 5, 6, 7, 8인 버튼을 모두 누르면 ◀가 Name인 버튼과 ▶가 Name인 버튼이 합쳐져 250x100버튼이 만들어지고 그 버튼에 ◆라는 Name을 적습니다. 해당 버튼을 누르면 성공 조건이 달성됩니다.  
+<Next Level> [Level 5]
+
+---------------------------------
+[Level 5]
+<Hint> 끝이자 시작
+<Name> 아무 버튼에도 Name을 적지 않습니다. 
+<Success> ID가 3, 7, 8, 9, 11, 12, 13, 14, 15, 17, 18, 19, 23인 버튼을 누르면 성고 조건이 달성됩니다.  
+<Next Level> [Level X]
+
+--------------------------------
+[Level X]
+<Hint> 축하합니다! 성공했어요!
+<Name> ID 1 버튼은 "축", ID 2 버튼은 "하", ID 3 버튼은 "합", ID 4 버튼은 "니", ID 5 버튼은 "다", ID 21 버튼은 "성", ID 22 버튼은 "공", ID 23 버튼은 "했", ID 24 버튼은 "어", ID 25 버튼은 "요" 라는 Name을 붙입니다. ID 6부터 20번까지의 버튼에는 무작위로 하나의 버튼에 ◆의 Name이 붙습니다. 
+<Success> ◆가 Name인 버튼을 눌렀을 경우 다시 ID 6부터 20번까지의 버튼 중 하나에 무작위로 ◆의 Name이 붙습니다. 10회 연속으로 ◆가 Name인 버튼을 누르면 성공 조건이 달성됩니다. 
+<Next Level> [YOU BEST]
+
+--------------------------------
+[YOU BEST]
+<Hint> YOU BEST!
+<Name> ID 13에 "BEST!" 라는 Name이 붙습니다. 
+ID 25에 "HOME→" 이라는 Name 이 붙습니다. 
+<Success> 없습니다. 
+<Next Level> 없습니다. 
+
