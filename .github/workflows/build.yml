@@ -57,4 +57,4 @@ jobs:
             windows/*
             macos/*
         env:
-            GITHUB_TOKEN: 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
+            GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
