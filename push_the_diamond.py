@@ -29,6 +29,37 @@ class PushTheDiamond:
         self.create_widgets()
         self.goto_level(0)
 
+    def remove_levelx_timer(self):
+        # Level X 타이머 라벨 및 타이머 제거
+        if hasattr(self, 'levelx_timer_label') and self.levelx_timer_label:
+            self.levelx_timer_label.destroy()
+            self.levelx_timer_label = None
+        self.levelx_timer_running = False
+    def start_levelx_timer(self):
+        self.levelx_timer_running = True
+        self.levelx_start_time = self.root.winfo_toplevel().tk.call('after', 'info')
+        self.levelx_timer_base = self.root.tk.call('after', 'info')
+        self.levelx_timer_start = self.root.tk.call('after', 'info')
+        self.levelx_timer_start = self.root.tk.call('after', 'info')
+        import time
+        self.levelx_timer_start = time.perf_counter()
+        self.update_levelx_timer()
+
+    def stop_levelx_timer(self):
+        self.levelx_timer_running = False
+
+    def update_levelx_timer(self):
+        if not getattr(self, 'levelx_timer_running', False):
+            return
+        import time
+        elapsed = time.perf_counter() - self.levelx_timer_start
+        sec = int(elapsed)
+        centi = int((elapsed - sec) * 100)
+        timer_str = f"{sec:02d}:{centi:02d}"
+        if hasattr(self, 'levelx_timer_label') and self.levelx_timer_label:
+            self.levelx_timer_label.config(text=timer_str)
+        self.root.after(10, self.update_levelx_timer)
+
     def add_missing_buttons(self):
         """
         ID 1~25 중 self.buttons에 없는 버튼을 찾아 즉시 생성해줍니다.
@@ -227,6 +258,7 @@ class PushTheDiamond:
     # 시작 화면
     def level_start(self):
         self.hint_text = "Push The Diamond에 오신 것을 환영합니다!"
+        self.remove_levelx_timer()
         self.set_button_name(7, "Push")
         self.set_button_name(8, "the")
         self.set_button_name(9, "Diamond")
@@ -324,11 +356,11 @@ class PushTheDiamond:
         pressed = set()
         merged = [False]
         def func(btn_id):
-            print(f"Button pressed: {btn_id}, Merged: {merged[0]}")
+            #print(f"Button pressed: {btn_id}, Merged: {merged[0]}")
             if not merged[0]:
                 if btn_id in merge_ids:
                     pressed.add(btn_id)
-                    print(f"Pressed: {pressed}, Btn IDs: {btn_id}")
+                    #print(f"Pressed: {pressed}, Btn IDs: {btn_id}")
                     if len(pressed) == len(merge_ids):
                         # self.buttons에서 left, right 항목을 삭제  
                         # 합치기: 삭제 전 ◀/▶ 버튼을 활성화(NORMAL)로 변경
@@ -400,6 +432,12 @@ class PushTheDiamond:
         self.set_button_name(24, "어")
         self.set_button_name(25, "요")
         self.diamond_count = 0
+        # 타이머 라벨 생성 (우측 상단)
+        if hasattr(self, 'levelx_timer_label') and self.levelx_timer_label:
+            self.levelx_timer_label.destroy()
+        self.levelx_timer_label = tk.Label(self.root, text="00:00", font=("Arial", 18), fg="red", bg="white")
+        self.canvas.create_window(900, 40, window=self.levelx_timer_label)
+        self.levelx_timer_running = False
         def set_random_diamond():
             for i in range(6, 21):
                 self.set_button_name(i, "")
@@ -409,8 +447,11 @@ class PushTheDiamond:
         set_random_diamond()
         def func(btn_id):
             if btn_id == self.diamond_id:
+                if self.diamond_count == 0:
+                    self.start_levelx_timer()
                 self.diamond_count += 1
                 if self.diamond_count == 10:
+                    self.stop_levelx_timer()
                     self.goto_level(7)
                 else:
                     set_random_diamond()
