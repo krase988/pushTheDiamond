@@ -28,7 +28,7 @@ jobs:
           pyinstaller --onefile --windowed push_the_diamond.py
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: push_the_diamond-${{ matrix.os }}
           path: dist/*
@@ -37,15 +37,15 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: push_the_diamond-ubuntu-latest
           path: linux
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: push_the_diamond-windows-latest
           path: windows
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: push_the_diamond-macos-latest
           path: macos
