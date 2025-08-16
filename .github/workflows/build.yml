@@ -3,7 +3,7 @@ name: Build and Release
 on:
   push:
     tags:
-      - 'v1.01'   # v1.0, v2.0 등 태그 푸시 시 자동 빌드
+      - 'v1.02'   # v1.0, v2.0 등 태그 푸시 시 자동 빌드
 
 jobs:
   build:
@@ -56,3 +56,5 @@ jobs:
             linux/*
             windows/*
             macos/*
+        env:
+            GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
